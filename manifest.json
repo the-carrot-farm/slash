@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Slash ",
+  "short_name": "slash",
+  "version": "0.0.1",
+  "description": "Searchable dashboard for busy professionals",
+  "icons": {
+  },
+  "permissions": ["activeTab"],
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
+}
