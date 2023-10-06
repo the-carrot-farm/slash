@@ -7,7 +7,7 @@ export interface Settings {
     data: any
 }
 
-export interface SettingsIndexDB extends Settings{
+export interface SettingsIndexDB extends Settings {
     id: string
 }
 

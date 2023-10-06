@@ -1,19 +1,19 @@
 import {expect, describe, it, afterEach} from 'vitest'
 import {Settings, SettingsPersistence} from "./settings.persistence.ts";
+import {mockReset} from "vitest-mock-extended";
 import {indexedDBDatabase} from "./mock-registry.ts";
-import {mockReset} from "jest-mock-extended";
 
 export const settingsPersistence = new SettingsPersistence(indexedDBDatabase)
 describe('Settings Persistence', () => {
     afterEach(() => {
-        mockReset(indexedDBDatabase);
+        mockReset(indexedDBDatabase)
     })
     it('should save settings and generate id', async () => {
         //given
         let settings : Settings = { name: "name", area: "profile", data: "Dominic Scimeca" };
         let savedSettings = { id: "name::profile", name: "name", area: "profile", data: "Dominic Scimeca" };
 
-        indexedDBDatabase.settings.put.mockReturnValue("id2")
+        indexedDBDatabase.settings.put.mockResolvedValue("id2")
 
         //when
         const result = await settingsPersistence.save(settings)
