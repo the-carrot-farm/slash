@@ -1,5 +1,5 @@
 import Dexie from 'dexie';
-import {SettingsIndexDB} from "./settings.persistence.ts";
+import {SettingsIndexDB} from "./settings/settings.persistence.ts";
 
 export class IndexedDBDatabase extends Dexie {
 

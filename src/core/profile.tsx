@@ -1,15 +1,19 @@
-import {SettingsPersistence} from "./settings.persistence.ts";
 import {useState, useEffect} from "react";
+import {SettingsService} from "./settings/settings.service.ts";
 
-export const Profile = ({ settingsPersistence }: { settingsPersistence: SettingsPersistence }) => {
-    const [name, setName] = useState("")
+export const Profile = ({ settingsService }: { settingsService: SettingsService }) => {
+    const [name, setName] = useState(undefined)
 
     useEffect(() => {
-        settingsPersistence.get("name","profile")
+        settingsService.subscribeToEntityEvents(settingsEvent =>
+            setName(settingsEvent.entity.data)
+        )
+
+        settingsService.get("name","profile")
             .then(settings => setName(settings?.data))
     }, []);
 
-    const nameContent = name ? (<div role={"name"}>Name: {name}</div>) : null
+    const nameContent = name ? (<div role='name'>Name: {name}</div>) : null
 
-    return (<div>{nameContent}</div>)
+    return (<div role='top'>{nameContent}</div>)
 }

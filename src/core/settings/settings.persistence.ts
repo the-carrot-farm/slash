@@ -1,4 +1,4 @@
-import {IndexedDBDatabase} from "./IndexDB.service.ts";
+import {IndexedDBDatabase} from "../IndexDB.service.ts";
 import * as R from 'ramda'
 
 export interface Settings {
