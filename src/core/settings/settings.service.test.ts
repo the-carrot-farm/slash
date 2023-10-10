@@ -39,6 +39,28 @@ describe('Settings Service', () => {
         expect(subscriber).toBeCalledWith(settingEntityEventWrapper)
     });
 
+    it('should be able to unsubscribe from events', async () => {
+        //given
+        let subscriber = vi.fn()
+
+        const subscription = settingsService.subscribeToEntityEvents(subscriber)
+
+        settingsPersistence.save.mockResolvedValue("entityId")
+
+        let settings : Settings = {name: "newTabDefault", area: "links", data: true}
+
+        subscription.dispose();
+
+
+        //when
+        await settingsService.save(settings)
+
+        //then
+        expect(settingsPersistence.save).toBeCalledWith(settings)
+
+        expect(subscriber).not.toBeCalled()
+    });
+
     it('should get from persistence', async () => {
         //given
         const returnedResult : Settings = {

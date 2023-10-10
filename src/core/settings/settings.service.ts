@@ -1,10 +1,12 @@
 import {Settings, SettingsPersistence} from "./settings.persistence.ts";
 import {EntityEvent, EntityEventOperation} from "../entity/entity.service.ts";
 import {TimeService} from "../time/time.service.ts";
+import {TypedEvent} from "../event/event.ts";
 
 export class SettingsService {
 
-    private subscribers : ((subscriber: EntityEvent<Settings>) => void)[] = []
+    private settingsEvents = new TypedEvent<EntityEvent<Settings>>()
+
     constructor(
         private settingsPersistence: SettingsPersistence,
         private timeService: TimeService,
@@ -17,13 +19,13 @@ export class SettingsService {
     save = async (settings: Settings) : Promise<string> => {
         const result = await this.settingsPersistence.save(settings)
 
-        this.subscribers.forEach(subscriber => subscriber(this.createEntitySaveEvent(settings)))
+        this.settingsEvents.emit(this.createEntitySaveEvent(settings))
 
         return result
     }
 
     subscribeToEntityEvents = (subscriber: (subscriber: EntityEvent<Settings>) => void) => {
-        this.subscribers.push(subscriber)
+        return this.settingsEvents.on(subscriber)
     }
 
     private createEntitySaveEvent = (settings: Settings): EntityEvent<Settings> =>  {
