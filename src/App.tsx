@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import {Profile} from "./core/profile.tsx";
-import {settingsPersistence} from "./core/registry.ts";
+import {settingsService} from "./core/registry.ts";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,15 +11,15 @@ function App() {
   return (
     <>
       <div>
-          <Profile settingsPersistence={settingsPersistence}/>
-        <a href="https://vitejs.dev" target="_blank">
+          <Profile settingsService={settingsService}/>
+        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React!!!!</h1>
+      <h1>Vite + React!!</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

@@ -1,7 +1,7 @@
 import {expect, describe, it, afterEach} from 'vitest'
 import {Settings, SettingsPersistence} from "./settings.persistence.ts";
 import {mockReset} from "vitest-mock-extended";
-import {indexedDBDatabase} from "./mock-registry.ts";
+import {indexedDBDatabase} from "../mock-registry.ts";
 
 export const settingsPersistence = new SettingsPersistence(indexedDBDatabase)
 describe('Settings Persistence', () => {
